@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">SR Factory Mode</string>
+    <string name="HomePageBasicInfo">Basic Information</string>
+    <string name="HomePageDeviceName">Device Name:</string>
+    <string name="HomePageDeviceModel">Device Model:</string>
+    <string name="HomePageSystemVersion">System Version:</string>
+    <string name="HomePageAndroidVersion">Android Version:</string>
+    <string name="HomePageRAM">RAM:</string>
+    <string name="HomePageROM">ROM:</string>
+    <string name="HomePageBatteryCapacity">BatteryCapacity:</string>
+    <string name="HomePageScreenSize">Screen Size:</string>
+    <string name="inch">Inch</string>
+    <string name="pixel">pixel</string>
+    <string name="G">G</string>
+    <string name="mAh">mAh</string>
+    <string name="call_112">tel:112</string>
+    <string name="HomePageScreenResolution">Screen Resolution:</string>
+    <string name="HomePagePhotograph">Photograph</string>
+    <string name="HomePageCallButton">CALL 112</string>
+    <string name="HomePageSingleTest">Single Test</string>
+    <string name="HomePageTestReport">Test Report</string>
+    <string name="permission_tittle">RequestPermission</string>
+    <string name="permission_message"> Due to the inability to obtain permissions in Sari factory mode, it cannot run normally. Please set permissions and use it. Setting path: System Settings -> SrFactoryMode -> Permissions </string>
+    <string name="GoSet">Settings</string>
+    <string name="Cancel">Cancel</string>
+
+    <string name="SingleTest">Single Test</string>
+    <string name="BatteryTest">Battery Test</string>
+    <string name="VibrationTest">Vibration Test</string>
+    <string name="MicrophoneTest">Microphone Test</string>
+    <string name="HeadphoneTest">Headphone Test</string>
+    <string name="LCDTest">LCD Test</string>
+    <string name="SpeakerTest">Speaker Test</string>
+    <string name="ReceiverTest">Receiver Test</string>
+    <string name="FlashlightTest">Flashlight Test</string>
+    <string name="CameraTest">Camera Test</string>
+    <string name="KeyTest">Key Test</string>
+    <string name="position">position</string>
+    <string name="sr_factory_mode">sr_factory_mode</string>
+
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="pass">Pass</string>
+    <string name="fail">Fail</string>
+    <string name="start">Start</string>
+
+    <string name="ChargeStatus">Charging Status:</string>
+    <string name="BatteryPercentage">Battery Percentage:</string>
+    <string name="BatteryVoltage">Battery Voltage:</string>
+    <string name="BatteryTemperature">Battery Temperature:</string>
+    <string name="is_charging">Charging</string>
+    <string name="Uncharged">Uncharged</string>
+    <string name="du">℃</string>
+    
+    <string name="battery_tip">The device is not charged and cannot be clicked through</string>
+    <string name="vibration_tip">During vibration test, please observe whether it is normal...</string>
+    <string name="noVibration">Device does not support vibration, please click Fail</string>
+    <string name="flash_tip">Flash test is underway, please observe whether it is normal...</string>
+    <string name="no_flash">Device does not support flashlight, please click Fail</string>
+    <string name="one_flash">Device only has one flashlight</string>
+    <string name="lcd_no">LCD test has not started, cannot click to pass</string>
+    <string name="lcd_tip">  In the LCD test, please click the screen and observe the color change...</string>
+
+    <string name="miko_tip">Click Record first, the recording will play automatically after 5 seconds...</string>
+    <string name="miko_fail">Cannot click through during or without testing</string>
+    <string name="record">Record</string>
+    <string name="recording">On recording, please speak...</string>
+    <string name="record_finish_test">Test complete, recording and playback completed...</string>
+    <string name="record_finish">Recording complete, playing the recording...</string>
+    <string name="testing">Testing</string>
+    <string name="testing_exit">The test is in progress and cannot be quit</string>
+    <string name="retest">Retest</string>
+
+
+
+
+</resources>

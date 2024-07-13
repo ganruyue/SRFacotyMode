@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">萨瑞工厂模式</string>
+    <string name="HomePageBasicInfo">基本信息</string>
+    <string name="HomePageDeviceName">设备名称：</string>
+    <string name="HomePageDeviceModel">设备型号：</string>
+    <string name="HomePageSystemVersion">版本号：</string>
+    <string name="HomePageAndroidVersion">Android 版本：</string>
+    <string name="HomePageRAM">RAM：</string>
+    <string name="HomePageROM">ROM：</string>
+    <string name="HomePageBatteryCapacity">电池容量：</string>
+    <string name="mAh">毫安</string>
+    <string name="call_112">tel:112</string>
+    <string name="HomePageScreenSize">屏幕尺寸：</string>
+    <string name="inch">英寸</string>
+    <string name="pixel">像素</string>
+    <string name="G">G</string>
+    <string name="HomePageScreenResolution">屏幕分辨率：</string>
+    <string name="HomePagePhotograph">拍照</string>
+    <string name="HomePageCallButton">拨打 112</string>
+    <string name="HomePageSingleTest">单项测试</string>
+    <string name="HomePageTestReport">测试报告</string>
+
+    <string name="permission_tittle">权限申请</string>
+    <string name="permission_message">由于萨瑞工厂模式不能获取权限,不能正常运行，请设置权限后使用;设置路径:系统设置->萨瑞工厂模式->权限</string>
+    <string name="GoSet">去设置</string>
+    <string name="Cancel">取消</string>
+
+    <string name="SingleTest">单项测试</string>
+    <string name="BatteryTest">电池测试</string>
+    <string name="VibrationTest">振动测试</string>
+    <string name="MicrophoneTest">麦克测试</string>
+    <string name="HeadphoneTest">耳机测试</string>
+    <string name="LCDTest">LCD测试</string>
+    <string name="SpeakerTest">喇叭测试</string>
+    <string name="ReceiverTest">听筒测试</string>
+    <string name="FlashlightTest">闪光灯测试</string>
+    <string name="CameraTest">相机测试</string>
+    <string name="KeyTest">按键测试</string>
+    <string name="position">position</string>
+    <string name="sr_factory_mode">sr_factory_mode</string>
+
+    <string name="next">下一个</string>
+    <string name="previous">上一个</string>
+
+    <string name="pass">通过</string>
+    <string name="fail">失败</string>
+    <string name="start">开始</string>
+
+    <string name="ChargeStatus">充电状态：</string>
+    <string name="BatteryPercentage">当前电量：</string>
+    <string name="BatteryVoltage">电池电压：</string>
+    <string name="BatteryTemperature">电池温度：</string>
+    <string name="is_charging">正在充电</string>
+    <string name="Uncharged">未充电</string>
+    <string name="du">度</string>
+
+    <string name="battery_tip">手机未充电，无法点击通过</string>
+    <string name="vibration_tip">振动测试中，请观察是否正常...</string>
+    <string name="noVibration">设备不支持振动，请点击失败</string>
+    <string name="flash_tip">闪光灯测试中，请观察是否正常...</string>
+    <string name="no_flash">设备没有闪光灯，请点击失败</string>
+    <string name="one_flash">设备只有一个闪光灯</string>
+    <string name="lcd_no">LCD测试未开始，不能点击通过</string>
+    <string name="lcd_tip">  LCD测试中，请点击屏幕，观察颜色变化...</string>
+
+    <string name="miko_tip">先点击录音,5秒后将会自动播放录音...</string>
+    <string name="miko_fail">在测试中或者未测试不能点击通过</string>
+    <string name="record">录音</string>
+    <string name="recording">录音中,请说话...</string>
+    <string name="record_finish_test">测试完成，已完成录音和播放...</string>
+    <string name="record_finish">录音完成,播放录音中...</string>
+    <string name="testing">测试中</string>
+    <string name="testing_exit">测试正在进行中，不能退出</string>
+    <string name="retest">重测</string>
+
+
+</resources>

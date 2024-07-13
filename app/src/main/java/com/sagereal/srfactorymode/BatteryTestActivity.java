@@ -1,0 +1,119 @@
+package com.sagereal.srfactorymode;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.BatteryManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+import com.sagereal.srfactorymode.databinding.ActivityBatteryTestBinding;
+import com.sagereal.srfactorymode.Utils.SharePreferenceUtils;
+
+
+public class BatteryTestActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private ActivityBatteryTestBinding binding;
+    private boolean isCharging = false;
+    private int position = 0;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_battery_test);
+        setTitle(R.string.BatteryTest);
+
+        binding = ActivityBatteryTestBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        // 注册BroadcastReceiver
+        IntentFilter filter = new IntentFilter(); //IntentFilter用于指定BroadcastReceiver应该接收哪些类型的广播
+        filter.addAction(Intent.ACTION_BATTERY_CHANGED);  //向过滤器添加了一个action 任何注册了此action的BroadcastReceiver都会接收到这个广播
+        registerReceiver(batteryReceiver, filter);
+
+        //按钮绑定
+        binding.pass.setOnClickListener((View.OnClickListener)this);
+        binding.fail.setOnClickListener((View.OnClickListener)this);
+    }
+
+    private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //充电状态
+            int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+            isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                    status == BatteryManager.BATTERY_STATUS_FULL;
+
+            //电量
+            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            int batteryPct = (int)(((float)level/scale)*100);
+
+            //电压
+            int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
+
+            //温度
+            int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+            // 温度是以十分之一摄氏度为单位的，需要将其转换为摄氏度
+            float temperatureInCelsius = temperature / 10.0f;
+
+
+            // 更新UI
+            runOnUiThread(() -> {
+                binding.chargeStatus.setText(getString(R.string.ChargeStatus) + " " +
+                        (isCharging ? getString(R.string.is_charging) : getString(R.string.Uncharged)));
+                binding.baPercentage.setText(getString(R.string.BatteryPercentage) + " "+batteryPct+"%");
+                binding.baVoltage.setText(getString(R.string.BatteryVoltage)+" "+voltage+" mV");
+                binding.baTemperature.setText(getString(R.string.BatteryTemperature)+" "+temperatureInCelsius+" ℃");
+            });
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 注销BroadcastReceiver
+        unregisterReceiver(batteryReceiver);
+    }
+
+    public static void openActivity(Context context) {
+        context.startActivity(new Intent(context, BatteryTestActivity.class));
+    }
+
+    //通过失败
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.pass) {
+            if(!isCharging){
+                Toast.makeText(v.getContext(),getString(R.string.battery_tip),Toast.LENGTH_SHORT).show();
+                return;}
+            else{
+                SharePreferenceUtils.save(v.getContext(), position, 1);
+         //创建一个新的Intent，指向SingleTestActivity。
+         //这个Intent被设置为清除当前任务栈中该Activity之上的所有Activity（通过intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);实现）
+         //这样用户就会直接看到SingleTestActivity的实例，而不是在其上堆叠新的实例。
+                Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                }
+            }
+        if (v.getId() == R.id.fail){
+            SharePreferenceUtils.save(v.getContext(),position,0);
+            Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+
+    }
+}
