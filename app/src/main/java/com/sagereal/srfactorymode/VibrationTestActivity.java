@@ -65,7 +65,6 @@ public class VibrationTestActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onPause() {
         super.onPause();
-
         // 如果在振动，取消振动
         if (vibrator != null && vibrator.hasVibrator()) {
             vibrator.cancel();

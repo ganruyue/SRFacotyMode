@@ -9,7 +9,6 @@ import com.sagereal.srfactorymode.R;
 
 public class SharePreferenceUtils {
 
-
      public static void save(Context context,int position,int result){
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.sr_factory_mode), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

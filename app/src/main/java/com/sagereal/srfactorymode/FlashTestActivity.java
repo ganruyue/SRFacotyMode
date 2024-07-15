@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sagereal.srfactorymode.Utils.SharePreferenceUtils;
+import com.sagereal.srfactorymode.Utils.ToastUtils;
 import com.sagereal.srfactorymode.databinding.ActivityFlashTestBinding;
 import com.sagereal.srfactorymode.databinding.ActivityVibrationTestBinding;
 
@@ -39,11 +40,11 @@ public class FlashTestActivity extends AppCompatActivity implements View.OnClick
         try {
             cameraId = cameraManager.getCameraIdList(); // 获取所有摄像头的ID
             if(cameraId.length == 0){
-                Toast.makeText(this,getString(R.string.no_flash),Toast.LENGTH_LONG).show();
+                ToastUtils.showToast(this,getString(R.string.no_flash),Toast.LENGTH_LONG);
                 return;
             }
             if(cameraId.length == 1){
-                Toast.makeText(this,getString(R.string.one_flash),Toast.LENGTH_LONG).show();
+                ToastUtils.showToast(this,getString(R.string.one_flash),Toast.LENGTH_LONG);
                 return;
             }
         } catch (CameraAccessException e) {

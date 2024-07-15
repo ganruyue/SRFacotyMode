@@ -64,7 +64,7 @@
     <string name="lcd_tip">  LCD测试中，请点击屏幕，观察颜色变化...</string>
 
     <string name="miko_tip">先点击录音,5秒后将会自动播放录音...</string>
-    <string name="miko_fail">在测试中或者未测试不能点击通过</string>
+    <string name="test_fail">在测试中或者未测试不能点击通过</string>
     <string name="record">录音</string>
     <string name="recording">录音中,请说话...</string>
     <string name="record_finish_test">测试完成，已完成录音和播放...</string>
@@ -72,6 +72,12 @@
     <string name="testing">测试中</string>
     <string name="testing_exit">测试正在进行中，不能退出</string>
     <string name="retest">重测</string>
+
+    <string name="headphone_tip">先插入耳机，然后点击录音，5秒后会自动播放录音...</string>
+    <string name="headphone_in">耳机插入</string>
+    <string name="headphone_out">未插入耳机</string>
+
+    <string name="speaker_tip">喇叭测试中，请观察喇叭是否有声音...</string>
 
 
 </resources>

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.sagereal.srfactorymode.Utils.ToastUtils;
 import com.sagereal.srfactorymode.databinding.ActivityBatteryTestBinding;
 import com.sagereal.srfactorymode.Utils.SharePreferenceUtils;
 
@@ -96,7 +97,7 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v.getId() == R.id.pass) {
             if(!isCharging){
-                Toast.makeText(v.getContext(),getString(R.string.battery_tip),Toast.LENGTH_SHORT).show();
+                ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip),Toast.LENGTH_SHORT);
                 return;}
             else{
                 SharePreferenceUtils.save(v.getContext(), position, 1);

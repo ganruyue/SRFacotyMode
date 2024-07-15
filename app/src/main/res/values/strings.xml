@@ -63,7 +63,7 @@
     <string name="lcd_tip">  In the LCD test, please click the screen and observe the color change...</string>
 
     <string name="miko_tip">Click Record first, the recording will play automatically after 5 seconds...</string>
-    <string name="miko_fail">Cannot click through during or without testing</string>
+    <string name="test_fail">Cannot click through during or without testing</string>
     <string name="record">Record</string>
     <string name="recording">On recording, please speak...</string>
     <string name="record_finish_test">Test complete, recording and playback completed...</string>
@@ -72,7 +72,9 @@
     <string name="testing_exit">The test is in progress and cannot be quit</string>
     <string name="retest">Retest</string>
 
+    <string name="headphone_tip">Plug in the headphones first, then click Record, 5 seconds later the recording will automatically play...</string>
+    <string name="headphone_in">Headphone inserted</string>
+    <string name="headphone_out">Headphone unplugged</string>
 
-
-
+    <string name="speaker_tip">During the horn test, observe whether the horn has sound...</string>
 </resources>

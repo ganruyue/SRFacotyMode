@@ -138,13 +138,13 @@ public class SingleTestActivity extends AppCompatActivity {
                             MicrophoneTestActivity.openActivity(itemView.getContext());
                             break;
                         case 3:
-                            HeadphoneTestActivity.openActivity(itemView.getContext(),position);
+                            HeadphoneTestActivity.openActivity(itemView.getContext());
                             break;
                         case 4:
                             LCDTestActivity.openActivity(itemView.getContext());
                             break;
                         case 5:
-                            SpeakerTestActivity.openActivity(itemView.getContext(),position);
+                            SpeakerTestActivity.openActivity(itemView.getContext());
                             break;
                         case 6:
                             ReceiverTestActivity.openActivity(itemView.getContext(),position);

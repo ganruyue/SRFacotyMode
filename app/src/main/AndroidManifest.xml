@@ -37,7 +37,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SRFactoryMode"
         tools:targetApi="31">
-        <service android:name=".AudioRecordingService"/>
         <activity
             android:name=".KeyTestActivity"
             android:exported="false" />
