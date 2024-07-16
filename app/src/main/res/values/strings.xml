@@ -77,4 +77,19 @@
     <string name="headphone_out">Headphone unplugged</string>
 
     <string name="speaker_tip">During the horn test, observe whether the horn has sound...</string>
+    <string name="receiver_tip">During the handset test, please observe the handset for sound...</string>
+    <string name="receiver_no">The device does not support handset playback</string>
+
+    <string name="front_camera">Front camera</string>
+    <string name="rear_camera">Rear camera</string>
+    <string name="camera_tip">Cannot click through without switching the camera</string>
+    <string name="no_click">Please do not click so fast</string>
+
+    <string name="up_volume">UP Volume</string>
+    <string name="down_volume">Down Volume</string>
+    <string name="power_volume">Power Volume</string>
+    <string name="key_tip">The test is not complete and cannot be clicked through</string>
+
+    <string name="test_report_tittle">Test Report</string>
+
 </resources>

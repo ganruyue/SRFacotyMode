@@ -147,16 +147,16 @@ public class SingleTestActivity extends AppCompatActivity {
                             SpeakerTestActivity.openActivity(itemView.getContext());
                             break;
                         case 6:
-                            ReceiverTestActivity.openActivity(itemView.getContext(),position);
+                            ReceiverTestActivity.openActivity(itemView.getContext());
                             break;
                         case 7:
-                            CameraTestActivity.openActivity(itemView.getContext(),position);
+                            CameraTestActivity.openActivity(itemView.getContext());
                             break;
                         case 8:
                             FlashTestActivity.openActivity(itemView.getContext());
                             break;
                         case 9:
-                            KeyTestActivity.openActivity(itemView.getContext(),position);
+                            KeyTestActivity.openActivity(itemView.getContext());
                             break;
                     }
                 }

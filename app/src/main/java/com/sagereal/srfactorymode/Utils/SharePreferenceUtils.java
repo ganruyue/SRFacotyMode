@@ -14,7 +14,7 @@ public class SharePreferenceUtils {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //为不同的position值保存不同的result，不会相互覆盖。
         editor.putInt(context.getResources().getString(R.string.position)+position, result);
-        //提交修改
+        //提交修改,apply()是异步的，不会阻塞主进程
         editor.apply();
     }
 }

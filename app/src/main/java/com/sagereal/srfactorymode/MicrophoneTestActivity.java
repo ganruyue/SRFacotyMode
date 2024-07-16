@@ -145,8 +145,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         if (v.getId() == R.id.recode_btn && !isRecording) {
             if(plugHeadphones)
-            {
-                //耳机插入状态不可以测试
+            {//耳机插入状态不可以测试
                 ToastUtils.showToast(this,getString(R.string.headphone_in),Toast.LENGTH_SHORT);
                 return;
             }
@@ -182,7 +181,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
 
     //开始录音
     private void startRecording() {
-        audioFilePath = getExternalCacheDir().getAbsolutePath() + "/recorded_audio.mp4";
+        audioFilePath = getExternalCacheDir().getAbsolutePath() + "/recorded_audio_headphone.mp4";
         //创建一个MediaRecorder实例，并设置其音频源、输出格式、输出文件和音频编码器。这些配置决定了录音的源格式和存储位置。
         if (mediaRecorder == null) {
             mediaRecorder = new MediaRecorder();
@@ -197,7 +196,6 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
             mediaRecorder.prepare();
             mediaRecorder.start();
             isRecording = true;
-
             binding.recodeBtn.setEnabled(false);   //开始录制后禁用按钮
             binding.recodeBtn.setText(R.string.testing); //测试中
             binding.Result.setText(R.string.recording);  //录音中,请说话...
@@ -205,17 +203,12 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
             e.printStackTrace();
         }
         //使用handler.postDelayed()安排一个延迟任务，该任务在5秒后执行。
-        //  当延迟时间到达时，将调用stopRecording()和startPlaying()方法。
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 stopRecording();
-                // 等待MediaRecorder完全停止后再开始播放（可选，取决于你的stopRecording实现）
-                // 这里可能需要一个回调或检查机制来确保MediaRecorder已经停止
-                startPlaying();
             }
         }, 5000); // 5秒后自动播放录音
-        stopPlaying();
     }
 
     //停止录音
@@ -226,14 +219,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
                 mediaRecorder.stop();
                 mediaRecorder.release();
                 mediaRecorder = null;
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.Result.setText(R.string.record_finish_test);
-                        binding.recodeBtn.setText(R.string.retest);
-                        binding.recodeBtn.setEnabled(true);
-                    }
-                }, 5000);
+                startPlaying();
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
@@ -250,11 +236,16 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
             mediaPlayer.setDataSource(audioFilePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
+            binding.MicT.setText(R.string.record_finish);
+            // 播放完成
+            mediaPlayer.setOnCompletionListener(mp -> {
+                stopPlaying();
+                binding.Result.setText(R.string.record_finish_test);
+                binding.recodeBtn.setText(R.string.retest);
+                binding.recodeBtn.setEnabled(true);
+            });
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            mediaRecorder = null;
-            binding.Result.setText(R.string.record_finish);
         }
     }
 
@@ -273,22 +264,14 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
     @Override
     protected void onPause() {
         super.onPause();
-        if(isPlaying)
-        {
-            stopPlaying();
-        }
-        if(isRecording)
-        {
-            stopRecording();
-        }
+        stopRecording();
+        stopPlaying();
     }
-
 
     @Override
     public void onDestroy() {
-        stopRecording();
-        stopPlaying();
         super.onDestroy();
+        unregisterReceiver(headphonesReceiver);
     }
 }
 

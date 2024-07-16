@@ -44,7 +44,7 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
     private Handler handler = new Handler();
 
     private boolean isRecording = false;
-    private boolean already_r = false;
+    private boolean isPlaying = false;
 
     // 耳机插拔状态，有耳机不测试
     private boolean plugHeadphones = false;
@@ -82,22 +82,24 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
         registerReceiver(headphonesReceiver, filter);
     }
 
-    //检查耳机状态
     private void checkHeadphones() {
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        // 判断是否插入耳机并进行提示
+        // 判断是否插入耳机
         if (audioManager.isWiredHeadsetOn()) {
+            // 耳机已插入
             ToastUtils.showToast(this, getString(R.string.headphone_in), Toast.LENGTH_SHORT);
-            plugHeadphones = true;
-            // 若插入了耳机且在测试中，则刷新该页面
+            plugHeadphones = true; // 标记耳机已插入
+        } else {
+            // 耳机未插入或已拔出
+            ToastUtils.showToast(this, getString(R.string.headphone_out), Toast.LENGTH_SHORT);
+            plugHeadphones = false; // 标记耳机未插入
+            // 若拔下了耳机并在测试中刷新该页面
             if (!binding.recodeBtn.isEnabled()) {
                 recreate();
             }
-        } else if (!audioManager.isWiredHeadsetOn() && plugHeadphones) {
-            ToastUtils.showToast(this, getString(R.string.headphone_out), Toast.LENGTH_SHORT);
-            plugHeadphones = false;
         }
     }
+
     private boolean checkPermissions() {
         // 检查权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -146,8 +148,7 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         if (v.getId() == R.id.recode_btn && !isRecording) {
             if(!plugHeadphones)
-            {
-                //耳机未插入状态不可以测试
+            {   //耳机未插入状态不可以测试
                 ToastUtils.showToast(this,getString(R.string.headphone_out),Toast.LENGTH_SHORT);
                 return;
             }
@@ -194,7 +195,6 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
             mediaRecorder.prepare();
             mediaRecorder.start();
             isRecording = true;
-
             binding.recodeBtn.setEnabled(false);   //开始录制后禁用按钮
             binding.recodeBtn.setText(R.string.testing); //测试中
             binding.Result.setText(R.string.recording);  //录音中,请说话...
@@ -207,12 +207,8 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
             @Override
             public void run() {
                 stopRecording();
-                // 等待MediaRecorder完全停止后再开始播放（可选，取决于你的stopRecording实现）
-                // 这里可能需要一个回调或检查机制来确保MediaRecorder已经停止
-                startPlaying();
             }
         }, 5000); // 5秒后自动播放录音
-        // stopPlaying();
     }
 
     //停止录音
@@ -223,15 +219,7 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
                 mediaRecorder.stop();
                 mediaRecorder.release();
                 mediaRecorder = null;
-                already_r = true;
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.Result.setText(R.string.record_finish_test);
-                        binding.recodeBtn.setText(R.string.retest);
-                        binding.recodeBtn.setEnabled(true);
-                    }
-                }, 5000);
+                startPlaying();
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             }
@@ -244,14 +232,20 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
             mediaPlayer = new MediaPlayer();
         }
         try {
+            isPlaying = true;
             mediaPlayer.setDataSource(audioFilePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
+            binding.HeadphoneTIP.setText(R.string.record_finish);
+            // 播放完成
+            mediaPlayer.setOnCompletionListener(mp -> {
+                stopPlaying();
+                binding.Result.setText(R.string.record_finish_test);
+                binding.recodeBtn.setText(R.string.retest);
+                binding.recodeBtn.setEnabled(true);
+            });
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            mediaRecorder = null;
-            binding.Result.setText(R.string.record_finish);
         }
     }
 
@@ -260,6 +254,7 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
+                isPlaying= false ;
             }
             mediaPlayer.release();
             mediaPlayer = null;
@@ -267,10 +262,16 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void onDestroy() {
+    protected void onPause() {
+        super.onPause();
         stopRecording();
         stopPlaying();
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(headphonesReceiver);
     }
 
     public static void openActivity(Context context) {
