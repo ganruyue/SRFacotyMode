@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sagereal.srfactorymode.databinding.SingletestBinding;
+import com.sagereal.srfactorymode.Utils.SharePreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class SingleTestActivity extends AppCompatActivity {
 
-    private static SingletestBinding binding;
+    private SingletestBinding binding;
     private SingleTestAdapter adapter;
     private List<String> dataList;
     private List<Integer> statusList;
@@ -70,16 +71,15 @@ public class SingleTestActivity extends AppCompatActivity {
 
    // Adapter类
     private class SingleTestAdapter extends RecyclerView.Adapter<SingleTestAdapter.ViewHolder> {
+       // 存放数据的列表
+       private List<String> mData;
+       // 上下文对象，用于访问资源等
+       private Context context;
 
-        private List<String> mData;
-        private Context context;
-
-
-    public SingleTestAdapter(List<String> data) {
+       public SingleTestAdapter(List<String> data) {
         this.mData = data;
         this.context= context;
     }
-
 
         @NonNull
         @Override
@@ -95,14 +95,13 @@ public class SingleTestActivity extends AppCompatActivity {
             holder.bind(item);
             //holder.textView.setText(item);
             //1红2绿
-           SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences(holder.itemView.getResources().getString(R.string.sr_factory_mode), Context.MODE_PRIVATE);
-           int value = sharedPreferences.getInt(holder.itemView.getResources().getString(R.string.position) + position, -1);
+           //SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences(holder.itemView.getResources().getString(R.string.sr_factory_mode), Context.MODE_PRIVATE);
+           int value = SharePreferenceUtils.getResult(SingleTestActivity.this, position, -1);
            if (value == 1) {
                holder.itemView.setBackgroundColor(holder.itemView.getResources().getColor(R.color.green));
            } else if (value == 0) {
                holder.itemView.setBackgroundColor(holder.itemView.getResources().getColor(R.color.red));
            }
-
         }
 
         @Override
@@ -121,7 +120,6 @@ public class SingleTestActivity extends AppCompatActivity {
             public void bind(String item){
                 textView.setText(item);
             }
-
 
             @Override
             public void onClick(View view) {

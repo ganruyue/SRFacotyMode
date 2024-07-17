@@ -99,6 +99,7 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
         } else if (!audioManager.isWiredHeadsetOn() && plugHeadphones) {
             ToastUtils.showToast(this, getString(R.string.headphone_out), Toast.LENGTH_SHORT);
             plugHeadphones = false;
+            onRestart();
         }
     }
 
@@ -144,6 +145,11 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
             if (!has_receiver()){
                 //不支持听筒，不能点击通过
                 ToastUtils.showToast(this,getString(R.string.receiver_no),Toast.LENGTH_SHORT);
+                return;
+            }
+            if(plugHeadphones)
+            {
+                ToastUtils.showToast(this,getString(R.string.headphone_in),Toast.LENGTH_SHORT);
                 return;
             }
             SharePreferenceUtils.save(v.getContext(), position, 1);
@@ -198,6 +204,12 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
     protected void onPause() {
         super.onPause();
         releaseMediaPlayer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        playMusic();
     }
 
     @Override

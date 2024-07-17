@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout-v11/homepage.xml" value="0.15364583333333334" />
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/activity_battery_test.xml" value="0.24673202614379086" />
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/activity_camera_test.xml" value="0.1" />
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/activity_flash_test.xml" value="0.20364583333333333" />
@@ -16,10 +17,11 @@
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/content_speaker_test.xml" value="0.20364583333333333" />
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/fragment_first.xml" value="0.67" />
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/fragment_second.xml" value="0.20364583333333333" />
-        <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/homepage.xml" value="0.1" />
+        <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/homepage.xml" value="0.16" />
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/recycler_item.xml" value="0.25" />
         <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/singletest.xml" value="0.1" />
-        <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/testreport.xml" value="0.20364583333333333" />
+        <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/layout/testreport.xml" value="0.2504288164665523" />
+        <entry key="..\:/Program Files/Android/AndriodStudioProjects/SRFactoryMode/app/src/main/res/menu/menu.xml" value="0.20364583333333333" />
       </map>
     </option>
   </component>

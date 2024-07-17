@@ -13,27 +13,38 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.LocaleList;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 
+import com.sagereal.srfactorymode.Utils.ToastUtils;
 import com.sagereal.srfactorymode.databinding.HomepageBinding;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private HomepageBinding binding;
+    private boolean DoubleClick = false; // 双击返回键退出程序
     //请求权限
     private static final int PERMISSIONS_REQUEST_CODE = 1;
     private final String[] mPermissions = {
@@ -52,18 +63,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding = HomepageBinding.inflate(getLayoutInflater());
         //将通过View Binding加载的布局根视图设置为Activity的内容视图,Activity就会显示homepage.xml布局文件中定义的内容。
         setContentView(binding.getRoot());
+        setTitle(R.string.sr_factory_mode);
         init();
+        binding.photographMainBtn.setOnClickListener((View.OnClickListener) this);
+        binding.callMainBtn.setOnClickListener((View.OnClickListener) this);
+        binding.SingleTestMainBtn.setOnClickListener((View.OnClickListener) this);
+        binding.TestReportMainBtn.setOnClickListener((View.OnClickListener) this);
         //检查权限是否授权
         if (!checkPermissions()) {
             //请求权限
             ActivityCompat.requestPermissions(this, mPermissions, PERMISSIONS_REQUEST_CODE);
         }
-        binding.photographMainBtn.setOnClickListener((View.OnClickListener) this);
-        binding.callMainBtn.setOnClickListener((View.OnClickListener) this);
-        binding.SingleTestMainBtn.setOnClickListener((View.OnClickListener) this);
-        binding.TestReportMainBtn.setOnClickListener((View.OnClickListener) this);
     }
-
 
     public void init(){
         binding.deviceName.setText(getString(R.string.HomePageDeviceName)+""+ Build.DEVICE);
@@ -77,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getScreenSolution();
     }
 
-
         // 检查是否有权限
         private boolean checkPermissions() {
             // 检查所有权限是否都已经被授权
@@ -90,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return true; // 权限已经授权，返回true
         }
-
 
     // 处理权限请求的结果
     /*@NonNull 是一个注解（annotation），它用于指示一个字段、方法参数、方法返回值或方法本身不应该为null。
@@ -114,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-
 
         //权限申请对话框
   private void showPermissionDialog(){
@@ -143,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.show();
     }
 
-
     public void getRam() {
         ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
@@ -170,7 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //使用 binding.rom.setText() 方法（这通常是在Data Binding中使用的）来更新UI上的ROM显示。
         binding.rom.setText(getString(R.string.HomePageROM) + " " + displayRomSize[i] + " " + getString(R.string.G));
     }
-
 
     public double getBatteryCapacity() {
         double batteryCapacity = 0;
@@ -201,7 +207,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return batteryCapacity;
     }
 
-
     public double getScreen(){
             // 获取DisplayMetrics实例
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -220,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return Math.round(screenSize * 100) / 100.0;
     }
 
-
     public void getScreenSolution() {
         // 获取WindowManager服务
         WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -238,6 +242,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //在actionbar上添加按钮
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    //按钮点击事件
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.translate) {
+            switchLanguage();
+            recreate();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void switchLanguage() {
+        LocaleList currentLocales = getResources().getConfiguration().getLocales();
+        Locale currentLocale = currentLocales.get(0);
+
+        if (currentLocale.equals(Locale.CHINA)||currentLocale.toString().contains(getString(R.string.zh))) {
+            switchLanguage(Locale.US);
+        } else {
+            switchLanguage(Locale.CHINA);
+        }
+        recreate();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void switchLanguage(Locale locale) {
+        // 修改应用的语言配置
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -283,6 +327,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Uri uri = Uri.parse(getString(R.string.call_112));
             call112Intent.setData(uri);
             startActivity(call112Intent);
+        }
+    }
+
+    //双击退出程序
+    @Override
+    public void onBackPressed() {
+        if (DoubleClick) {
+            super.onBackPressed();
+        } else {
+            DoubleClick = true;
+            ToastUtils.showToast(this, getString(R.string.exit), Toast.LENGTH_SHORT);
+            new Handler().postDelayed(() -> DoubleClick = false, 2000);
         }
     }
 }

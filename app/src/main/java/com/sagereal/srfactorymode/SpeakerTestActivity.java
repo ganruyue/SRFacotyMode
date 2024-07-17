@@ -81,6 +81,7 @@ public class SpeakerTestActivity extends AppCompatActivity implements View.OnCli
         } else if (!audioManager.isWiredHeadsetOn() && plugHeadphones) {
             ToastUtils.showToast(this, getString(R.string.headphone_out), Toast.LENGTH_SHORT);
             plugHeadphones = false;
+            onRestart();
         }
     }
 
@@ -105,6 +106,11 @@ public class SpeakerTestActivity extends AppCompatActivity implements View.OnCli
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onClick (View v){
         if (v.getId() == R.id.pass) {
+            if(plugHeadphones)
+            {
+                ToastUtils.showToast(this,getString(R.string.headphone_in),Toast.LENGTH_SHORT);
+                return;
+            }
             SharePreferenceUtils.save(v.getContext(), position, 1);
             Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -142,6 +148,12 @@ public class SpeakerTestActivity extends AppCompatActivity implements View.OnCli
     protected void onPause() {
         super.onPause();
         releaseMediaPlayer();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        playMusic();
     }
 
     @Override

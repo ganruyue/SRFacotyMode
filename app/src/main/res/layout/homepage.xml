@@ -172,4 +172,17 @@
                 style="?android:attr/buttonBarButtonStyle"/>
         </LinearLayout>
     </LinearLayout>
+    <!-- 图片按钮 -->
+    <android.widget.Button
+        android:id="@+id/translate"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/grayish"
+        android:text="@string/Translate"
+        android:textColor="@color/black" />
 </LinearLayout>
