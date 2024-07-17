@@ -26,7 +26,8 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
     private ActivityBatteryTestBinding binding;
     private boolean isCharging = false;
     private int position = 0;
-
+    //需要修改，未充电充电各一次才可以点击通过,有状态改变数字加1
+    private int change= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
         binding.fail.setOnClickListener((View.OnClickListener)this);
     }
 
-    private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+        private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -68,7 +69,7 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
             // 温度是以十分之一摄氏度为单位的，需要将其转换为摄氏度
             float temperatureInCelsius = temperature / 10.0f;
 
-
+            change++;
             // 更新UI
             runOnUiThread(() -> {
                 binding.chargeStatus.setText(getString(R.string.ChargeStatus) + " " +
@@ -99,6 +100,9 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
             if(!isCharging){
                 ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip),Toast.LENGTH_SHORT);
                 return;}
+            if(change == 0){
+                ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip1),Toast.LENGTH_SHORT);
+            }
             else{
                 SharePreferenceUtils.save(v.getContext(), position, 1);
          //创建一个新的Intent，指向SingleTestActivity。

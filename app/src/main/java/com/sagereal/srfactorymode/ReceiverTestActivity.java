@@ -191,11 +191,16 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
         return false;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onResume() {
         super.onResume();
         if (mediaPlayer != null) {
             releaseMediaPlayer();
+        }
+        // 检查设备是否支持听筒
+        if (!supportReceiver()) {
+            return;
         }
         playMusic();
     }

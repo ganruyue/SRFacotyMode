@@ -181,6 +181,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
 
     //开始录音
     private void startRecording() {
+        binding.Result.setText(R.string.recording);
         audioFilePath = getExternalCacheDir().getAbsolutePath() + "/recorded_audio_headphone.mp4";
         //创建一个MediaRecorder实例，并设置其音频源、输出格式、输出文件和音频编码器。这些配置决定了录音的源格式和存储位置。
         if (mediaRecorder == null) {
@@ -213,6 +214,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
 
     //停止录音
     void stopRecording() {
+        binding.Result.setText(R.string.record_finish);
         if (mediaRecorder != null) {
             try {
                 isRecording = false;

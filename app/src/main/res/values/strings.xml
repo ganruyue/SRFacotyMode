@@ -59,6 +59,7 @@
     <string name="du">℃</string>
     
     <string name="battery_tip">The device is not charged and cannot be clicked through</string>
+    <string name="battery_tip1">If all tests are not completed, charge or not charge once</string>
     <string name="vibration_tip">During vibration test, please observe whether it is normal...</string>
     <string name="noVibration">Device does not support vibration, please click Fail</string>
     <string name="flash_tip">Flash test is underway, please observe whether it is normal...</string>

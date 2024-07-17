@@ -60,6 +60,7 @@
     <string name="du">度</string>
 
     <string name="battery_tip">手机未充电，无法点击通过</string>
+    <string name="battery_tip1">未完成所有测试，需充电不充电各一次</string>
     <string name="vibration_tip">振动测试中，请观察是否正常...</string>
     <string name="noVibration">设备不支持振动，请点击失败</string>
     <string name="flash_tip">闪光灯测试中，请观察是否正常...</string>

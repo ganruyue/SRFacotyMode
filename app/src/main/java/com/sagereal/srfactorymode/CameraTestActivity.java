@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.hardware.Camera;
+import android.os.Handler;
 import android.provider.Settings;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -155,8 +156,7 @@ public class CameraTestActivity extends AppCompatActivity implements View.OnClic
             view.setOnClickListener(this);
         }
     }
-
-    public static void openActivity(Context context) {
+        public static void openActivity(Context context) {
         context.startActivity(new Intent(context, CameraTestActivity.class));
     }
 
