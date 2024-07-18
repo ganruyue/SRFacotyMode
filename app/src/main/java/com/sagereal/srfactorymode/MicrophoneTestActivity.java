@@ -45,6 +45,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
     private Handler handler = new Handler();
     boolean isRecording = false;
     boolean isPlaying = false;
+    boolean mTestOver = false;
 
     private BroadcastReceiver headphonesReceiver;
     // 耳机插拔状态，有耳机不测试
@@ -179,6 +180,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
 
     //开始录音
     private void startRecording() {
+        isRecording = true;
         binding.Result.setText(R.string.recording);
         audioFilePath = getExternalCacheDir().getAbsolutePath() + "/recorded_audio_headphone.mp4";
         //创建一个MediaRecorder实例，并设置其音频源、输出格式、输出文件和音频编码器。这些配置决定了录音的源格式和存储位置。
@@ -194,9 +196,9 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
         try {
             mediaRecorder.prepare();
             mediaRecorder.start();
-            isRecording = true;
             binding.recodeBtn.setEnabled(false);   //开始录制后禁用按钮
             binding.recodeBtn.setText(R.string.testing); //测试中
+            binding.Result.setVisibility(View.VISIBLE);
             binding.Result.setText(R.string.recording);  //录音中,请说话...
         } catch (IOException e) {
             e.printStackTrace();
@@ -212,10 +214,10 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
 
     //停止录音
     void stopRecording() {
+        isRecording = false;
         binding.Result.setText(R.string.record_finish);
         if (mediaRecorder != null) {
             try {
-                isRecording = false;
                 mediaRecorder.stop();
                 mediaRecorder.release();
                 mediaRecorder = null;
@@ -236,13 +238,13 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
             mediaPlayer.setDataSource(audioFilePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
-            binding.MicT.setText(R.string.miko_tip);
             // 播放完成
             mediaPlayer.setOnCompletionListener(mp -> {
                 stopPlaying();
                 binding.Result.setText(R.string.record_finish_test);
                 binding.recodeBtn.setText(R.string.retest);
                 binding.recodeBtn.setEnabled(true);
+                mTestOver = true;
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -264,8 +266,27 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
     @Override
     protected void onPause() {
         super.onPause();
-        stopRecording();
-        stopPlaying();
+        if (isRecording || mediaRecorder != null) {
+            mediaRecorder.stop();
+            mediaRecorder.release();
+            mediaRecorder = null;
+            isRecording = false;
+            resetUI();
+        }
+        if (isPlaying && mediaPlayer != null) {
+            stopPlaying();
+            resetUI();
+        }
+    }
+
+    /**
+     * 重置UI和测试状态
+     */
+    private void resetUI() {
+        binding.Result.setVisibility(View.INVISIBLE);
+        binding.recodeBtn.setText(R.string.retest);
+        binding.recodeBtn.setEnabled(true);
+        mTestOver = false;
     }
 
     @Override

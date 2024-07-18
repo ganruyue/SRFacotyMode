@@ -196,6 +196,7 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
             isRecording = true;
             binding.recodeBtn.setEnabled(false);   //开始录制后禁用按钮
             binding.recodeBtn.setText(R.string.testing); //测试中
+            binding.Result.setVisibility(View.VISIBLE);
             binding.Result.setText(R.string.recording);  //录音中,请说话...
         } catch (IOException e) {
             e.printStackTrace();
@@ -265,6 +266,14 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
         super.onPause();
         stopRecording();
         stopPlaying();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        binding.recodeBtn.setText(R.string.retest);
+        binding.recodeBtn.setEnabled(true);
+        binding.Result.setVisibility(View.INVISIBLE);
     }
 
     @Override

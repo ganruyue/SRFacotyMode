@@ -39,42 +39,55 @@
         tools:targetApi="31">
         <activity
             android:name=".KeyTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ReceiverTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SpeakerTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".LCDTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".HeadphoneTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MicrophoneTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".VibrationTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".FlashTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".CameraTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".BatteryTestActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SingleTestActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".TestReportActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

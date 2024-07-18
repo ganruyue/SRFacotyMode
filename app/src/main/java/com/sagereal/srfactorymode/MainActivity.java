@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void init(){
-        binding.deviceName.setText(getString(R.string.HomePageDeviceName)+""+ Build.DEVICE);
+        binding.deviceName.setText(getString(R.string.HomePageDeviceName)+" "+ Build.DEVICE);
         binding.deviceType.setText(getString(R.string.HomePageDeviceModel) + " " + Build.MODEL);
         binding.systemVersion.setText(getString(R.string.HomePageSystemVersion) + " " + Build.DISPLAY);
         binding.androidVersion.setText(getString(R.string.HomePageAndroidVersion) + " " + Build.VERSION.RELEASE);

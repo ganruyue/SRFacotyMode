@@ -29,8 +29,8 @@ public class TestReportActivity extends AppCompatActivity{
             R.string.SpeakerTest,
             R.string.ReceiverTest,
             R.string.CameraTest,
-            R.string.KeyTest,
             R.string.FlashlightTest,
+            R.string.KeyTest,
     };
 
     private final List<Map<String, String>> mListItem0 = new ArrayList<>();

@@ -61,10 +61,9 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
             // 充电状态改变时调用
             if (isCharging != wasCharging) {
                 charge_change++;
+                wasCharging = isCharging;
             }
-            wasCharging = isCharging;
-
-    int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+            int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
 

@@ -93,7 +93,7 @@
 
     <string name="up_volume">UP Volume</string>
     <string name="down_volume">Down Volume</string>
-    <string name="power_volume">Power Volume</string>
+    <string name="power_volume">Power Key</string>
     <string name="key_tip">The test is not complete and cannot be clicked through</string>
 
     <string name="test_report_tittle">Test Report</string>
