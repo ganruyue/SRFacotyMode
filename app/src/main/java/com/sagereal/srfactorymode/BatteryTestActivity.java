@@ -108,9 +108,9 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.pass) {
-            if(!isCharging){
-                ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip),Toast.LENGTH_SHORT);
-                return;}
+//            if(!isCharging){
+//                ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip),Toast.LENGTH_SHORT);
+//                return;}
             if(charge_change == 0){
                 ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip1),Toast.LENGTH_SHORT);
             }

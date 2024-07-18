@@ -198,6 +198,7 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
         }
         // 检查设备是否支持听筒
         if (!supportReceiver()) {
+            ToastUtils.showToast(this,getString(R.string.receiver_no),Toast.LENGTH_SHORT);
             return;
         }
         playMusic();

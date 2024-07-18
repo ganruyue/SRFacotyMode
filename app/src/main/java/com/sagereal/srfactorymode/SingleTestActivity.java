@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -42,13 +44,19 @@ public class SingleTestActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // 获取RecyclerView并设置LayoutManager和Adapter
-        RecyclerView recyclerView = binding.testRv;
+
         // 设置LayoutManager
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // 创建并设置Adapter
-        adapter = new SingleTestAdapter(init_d());
-        recyclerView.setAdapter(adapter);
+        binding.testRv.setLayoutManager(new LinearLayoutManager(this));
+
         setTitle(getString(R.string.SingleTest));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SingleTestAdapter singleTestItemAdapter = new SingleTestAdapter(init_d());
+        // 创建并设置Adapter
+        binding.testRv.setAdapter(new SingleTestAdapter(init_d()));
     }
 
     public List<String> init_d() {
@@ -103,6 +111,7 @@ public class SingleTestActivity extends AppCompatActivity {
                holder.itemView.setBackgroundColor(holder.itemView.getResources().getColor(R.color.red));
            }
         }
+
 
         @Override
         public int getItemCount() {
