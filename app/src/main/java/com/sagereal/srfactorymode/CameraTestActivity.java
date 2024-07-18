@@ -76,9 +76,6 @@ public class CameraTestActivity extends AppCompatActivity implements View.OnClic
             mCamera.setPreviewDisplay(mSurfaceHolder);
             mCamera.setDisplayOrientation(90);
             mCamera.startPreview();
-//            finalPreviewRequestBuilder1.set(CaptureRequest.CONTROL_AF_MODE,
-//                    CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
-            /**暂时还不会写对焦**/
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -93,12 +93,14 @@ public class SpeakerTestActivity extends AppCompatActivity implements View.OnCli
         // 创建MediaPlayer并设置要播放的音乐文件
         mediaPlayer = MediaPlayer.create(this, R.raw.music);
         if (mediaPlayer != null) {
+            // 设置音频流的类型为音乐流。这是在Android中用于区分不同音频用途的标识，比如音乐、电话铃声、系统通知等。
+            // 使用STREAM_MUSIC表示这个音频流是用于播放音乐的，这会影响音量控制和音频焦点等行为。
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            // 通过AudioAttributes.Builder构建一个AudioAttributes对象
             mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .build());
-            // 播放音乐
+                    .setUsage(AudioAttributes.USAGE_MEDIA) // 设置音频的用途为媒体
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC) // 设置音频的内容类型为音乐
+                    .build()); // 构建AudioAttributes对象
             mediaPlayer.start();
         }
     }

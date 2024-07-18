@@ -46,7 +46,7 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
     private boolean isRecording = false;
     private boolean isPlaying = false;
 
-    // 耳机插拔状态，有耳机不测试
+    // 耳机插拔状态，无耳机不测试
     private boolean plugHeadphones = false;
     private BroadcastReceiver headphonesReceiver;
 

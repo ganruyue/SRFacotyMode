@@ -50,6 +50,8 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
         binding.fail.setOnClickListener((View.OnClickListener)this);
     }
 
+    //这个参数是调用广播接收器的上下文（Context），它是关于当前应用环境的信息的抽象类
+    //这个参数包含了广播消息的详细信息。Intent 是Android中用于在不同组件之间传递消息的类。
         private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -60,15 +62,19 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
                 wasCharging = isCharging;
             }
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+            //正在充电或充满了
             isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
+
             //电量
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             int batteryPct = (int)(((float)level/scale)*100);
+
             //电压
             int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
             //温度
+
             int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
             // 温度是以十分之一摄氏度为单位的，需要将其转换为摄氏度
             float temperatureInCelsius = temperature / 10.0f;

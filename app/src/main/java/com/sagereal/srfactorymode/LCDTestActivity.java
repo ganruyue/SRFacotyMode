@@ -60,6 +60,8 @@ public class LCDTestActivity extends AppCompatActivity implements View.OnClickLi
                 binding.pass.setVisibility(View.VISIBLE);
                 binding.fail.setVisibility(View.VISIBLE);
             }
+            //View类的一个方法，用于设置视图的背景颜色
+            //count % 4是一个取模运算，用于确保count的值始终在0到3之间循环
             binding.lcd.setBackgroundColor(getResources().getColor(color[count % 4]));
             count++;
             if (count > 3) {

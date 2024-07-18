@@ -66,7 +66,6 @@ public class FlashTestActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onPause() {
@@ -80,7 +79,6 @@ public class FlashTestActivity extends AppCompatActivity implements View.OnClick
             e.printStackTrace();
         }
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
         @Override

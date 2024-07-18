@@ -218,7 +218,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
             public void run() {
                 stopRecording();
             }
-        }, 5000); // 5秒后自动播放录音
+        }, 5000); // 5秒后暂停录音，并开始播放
     }
 
     //停止录音
@@ -275,27 +275,16 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
     @Override
     protected void onPause() {
         super.onPause();
-        if (isRecording || mediaRecorder != null) {
-            mediaRecorder.stop();
-            mediaRecorder.release();
-            mediaRecorder = null;
-            isRecording = false;
-            resetUI();
-        }
-        if (isPlaying && mediaPlayer != null) {
-            stopPlaying();
-            resetUI();
-        }
+        stopRecording();
+        stopPlaying();
     }
 
-    /**
-     * 重置UI和测试状态
-     */
-    private void resetUI() {
-        binding.Result.setVisibility(View.INVISIBLE);
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         binding.recodeBtn.setText(R.string.retest);
         binding.recodeBtn.setEnabled(true);
-        mTestOver = false;
+        binding.Result.setVisibility(View.INVISIBLE);
     }
 
     @Override

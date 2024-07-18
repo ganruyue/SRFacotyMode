@@ -24,7 +24,6 @@ public class KeyTestActivity extends AppCompatActivity implements View.OnClickLi
     private int position = 9;
     private BroadcastReceiver powerReceiver = new BroadcastReceiver() {
         //电源键只可以检测黑屏
-
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {

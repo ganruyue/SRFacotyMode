@@ -59,7 +59,6 @@ public class VibrationTestActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -68,7 +67,6 @@ public class VibrationTestActivity extends AppCompatActivity implements View.OnC
             vibrator.cancel();
         }
     }
-
 
     @Override
     protected void onResume() {
@@ -85,7 +83,6 @@ public class VibrationTestActivity extends AppCompatActivity implements View.OnC
             vibrator.vibrate(pattern, 0);
         }
     }
-
 
     @Override
     protected void onDestroy() {

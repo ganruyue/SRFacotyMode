@@ -51,16 +51,6 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         // 设置音量控制流
         setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
-        //初始化音量为一半
-        init_volume();
-    }
-
-    private void init_volume(){
-        // 获取AudioManager实例
-        AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        int volume = maxVolume / 2;
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -112,21 +102,18 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
         if (audioManager != null) {
             audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
             audioManager.setSpeakerphoneOn(false);
-
             // 创建MediaPlayer并设置要播放的音乐文件
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                     .build());
-
             try {
                 // 设置MediaPlayer文件
                 mediaPlayer.setDataSource(this, Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.music));
                 // 设置准备监听器，当MediaPlayer准备好时开始播放
                 mediaPlayer.setOnPreparedListener(MediaPlayer::start);
-                // 异步准备MediaPlayer，这样不会阻塞主线程
-                mediaPlayer.prepareAsync();
+                mediaPlayer.prepare();
                 // 设置播放完成监听器，当MediaPlayer播放完成时恢复音频路由为默认值
                 mediaPlayer.setOnCompletionListener(mp -> {
                     audioManager.setMode(AudioManager.MODE_NORMAL);
