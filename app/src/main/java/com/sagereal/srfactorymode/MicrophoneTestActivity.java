@@ -66,6 +66,15 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
         askForPermission();
         // 注册耳机插拔状态变化的广播接收器
         registerHeadphonesReceiver();
+        init_volume();
+    }
+
+    private void init_volume(){
+        // 获取AudioManager实例
+        AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int volume = maxVolume / 2;
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
     }
 
     //广播接收器

@@ -50,11 +50,7 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
         binding.fail.setOnClickListener((View.OnClickListener)this);
     }
 
-
-
         private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
-
-
         @Override
         public void onReceive(Context context, Intent intent) {
             //充电状态
@@ -66,20 +62,16 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
-
             //电量
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             int batteryPct = (int)(((float)level/scale)*100);
-
             //电压
             int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
-
             //温度
             int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
             // 温度是以十分之一摄氏度为单位的，需要将其转换为摄氏度
             float temperatureInCelsius = temperature / 10.0f;
-
             // 更新UI
             runOnUiThread(() -> {
                 binding.chargeStatus.setText(getString(R.string.ChargeStatus) + " " +

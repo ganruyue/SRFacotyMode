@@ -261,12 +261,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    //这个函数主要负责判断当前应用的语言环境
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void switchLanguage() {
+            // 获取当前应用的语言环境列表,当前语言环境
         LocaleList currentLocales = getResources().getConfiguration().getLocales();
         Locale currentLocale = currentLocales.get(0);
 
-        if (currentLocale.equals(Locale.CHINA)||currentLocale.toString().contains(getString(R.string.zh))) {
+        if (currentLocale.equals(Locale.SIMPLIFIED_CHINESE)||currentLocale.toString().contains(getString(R.string.zh))) {
             switchLanguage(Locale.US);
         } else {
             switchLanguage(Locale.CHINA);
@@ -274,11 +276,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recreate();
     }
 
+    //这个方法接收一个 Locale 对象作为参数，表示要切换到的目标语言环境。这个函数负责实际修改应用的语言环境配置
     @SuppressWarnings("deprecation")
     private void switchLanguage(Locale locale) {
         // 修改应用的语言配置
+        //通过 getResources() 获取当前应用的 Resources 对象，然后获取其 Configuration 对象。
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
+        // 使用 configuration.setLocale(locale) 方法将 Configuration 对象的 Locale 设置为新的语言环境
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
