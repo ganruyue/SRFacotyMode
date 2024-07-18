@@ -165,16 +165,14 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
                 ToastUtils.showToast(v.getContext(), getString(R.string.test_fail), Toast.LENGTH_SHORT);
             } else {
                 SharePreferenceUtils.save(v.getContext(), position, 1);
-                Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                // 跳转至单项测试列表页面
+                finish();
             }
         }
         if (v.getId() == R.id.fail) {
             SharePreferenceUtils.save(v.getContext(), position, 0);
-            Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            // 跳转至单项测试列表页面
+            finish();
         }
     }
 
@@ -238,7 +236,6 @@ public class HeadphoneTestActivity extends AppCompatActivity implements View.OnC
             mediaPlayer.setDataSource(audioFilePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
-            binding.HeadphoneTIP.setText(R.string.record_finish);
             // 播放完成
             mediaPlayer.setOnCompletionListener(mp -> {
                 stopPlaying();

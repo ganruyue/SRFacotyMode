@@ -87,18 +87,13 @@ public class FlashTestActivity extends AppCompatActivity implements View.OnClick
         public void onClick (View v){
             if (v.getId() == R.id.pass) {
                 SharePreferenceUtils.save(v.getContext(), position, 1);
-                //创建一个新的Intent，指向SingleTestActivity。
-                //这个Intent被设置为清除当前任务栈中该Activity之上的所有Activity（通过intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);实现）
-                //这样用户就会直接看到SingleTestActivity的实例，而不是在其上堆叠新的实例。
-                Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                // 跳转至单项测试列表页面
+                finish();
             }
             if (v.getId() == R.id.fail) {
                 SharePreferenceUtils.save(v.getContext(), position, 0);
-                Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                // 跳转至单项测试列表页面
+                finish();
             }
         }
 

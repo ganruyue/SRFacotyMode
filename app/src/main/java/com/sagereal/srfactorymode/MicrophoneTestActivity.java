@@ -162,16 +162,14 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
                 ToastUtils.showToast(v.getContext(), getString(R.string.test_fail), Toast.LENGTH_SHORT);
             } else {
                 SharePreferenceUtils.save(v.getContext(), position, 1);
-                Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                // 跳转至单项测试列表页面
+                finish();
             }
         }
         if (v.getId() == R.id.fail) {
             SharePreferenceUtils.save(v.getContext(), position, 0);
-            Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            // 跳转至单项测试列表页面
+            finish();
         }
     }
 
@@ -238,7 +236,7 @@ public class MicrophoneTestActivity extends AppCompatActivity implements View.On
             mediaPlayer.setDataSource(audioFilePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
-            binding.MicT.setText(R.string.record_finish);
+            binding.MicT.setText(R.string.miko_tip);
             // 播放完成
             mediaPlayer.setOnCompletionListener(mp -> {
                 stopPlaying();

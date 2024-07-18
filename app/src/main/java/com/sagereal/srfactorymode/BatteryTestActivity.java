@@ -26,8 +26,11 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
     private ActivityBatteryTestBinding binding;
     private boolean isCharging = false;
     private int position = 0;
+    // 假设的wasCharging变量，用于跟踪上次的充电状态
+    private boolean wasCharging = false;
+    private int charge_change = 0;
     //需要修改，未充电充电各一次才可以点击通过,有状态改变数字加1
-    private int change= 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,21 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
         binding.fail.setOnClickListener((View.OnClickListener)this);
     }
 
+
+
         private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+
 
         @Override
         public void onReceive(Context context, Intent intent) {
             //充电状态
-            int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+            // 充电状态改变时调用
+            if (isCharging != wasCharging) {
+                charge_change++;
+            }
+            wasCharging = isCharging;
+
+    int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
 
@@ -69,7 +81,6 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
             // 温度是以十分之一摄氏度为单位的，需要将其转换为摄氏度
             float temperatureInCelsius = temperature / 10.0f;
 
-            change++;
             // 更新UI
             runOnUiThread(() -> {
                 binding.chargeStatus.setText(getString(R.string.ChargeStatus) + " " +
@@ -100,25 +111,19 @@ public class BatteryTestActivity extends AppCompatActivity implements View.OnCli
             if(!isCharging){
                 ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip),Toast.LENGTH_SHORT);
                 return;}
-            if(change == 0){
+            if(charge_change == 0){
                 ToastUtils.showToast(v.getContext(),getString(R.string.battery_tip1),Toast.LENGTH_SHORT);
             }
             else{
                 SharePreferenceUtils.save(v.getContext(), position, 1);
-         //创建一个新的Intent，指向SingleTestActivity。
-         //这个Intent被设置为清除当前任务栈中该Activity之上的所有Activity（通过intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);实现）
-         //这样用户就会直接看到SingleTestActivity的实例，而不是在其上堆叠新的实例。
-                Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                // 跳转至单项测试列表页面
+                finish();
                 }
             }
         if (v.getId() == R.id.fail){
             SharePreferenceUtils.save(v.getContext(),position,0);
-            Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            // 跳转至单项测试列表页面
+            finish();
         }
-
     }
 }

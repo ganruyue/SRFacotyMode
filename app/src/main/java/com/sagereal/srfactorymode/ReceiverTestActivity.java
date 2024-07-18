@@ -153,15 +153,13 @@ public class ReceiverTestActivity extends AppCompatActivity implements View.OnCl
                 return;
             }
             SharePreferenceUtils.save(v.getContext(), position, 1);
-            Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            // 跳转至单项测试列表页面
+            finish();
         }
         if (v.getId() == R.id.fail) {
             SharePreferenceUtils.save(v.getContext(), position, 0);
-            Intent intent = new Intent(getApplicationContext(), SingleTestActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            // 跳转至单项测试列表页面
+            finish();
         }
     }
 
