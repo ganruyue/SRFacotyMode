@@ -49,6 +49,7 @@ public class KeyTestActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     //音量键
+    //keyCode（表示被按下的键的代码）和event（关于按键事件的详细信息）。
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
@@ -62,6 +63,7 @@ public class KeyTestActivity extends AppCompatActivity implements View.OnClickLi
                 return super.onKeyDown(keyCode, event);
         }
     }
+
    //按电源键又打开后恢复
     @Override
     protected void onResume() {

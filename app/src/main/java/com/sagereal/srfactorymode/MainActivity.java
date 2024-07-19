@@ -102,11 +102,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     // 处理权限请求的结果
-    /*@NonNull 是一个注解（annotation），它用于指示一个字段、方法参数、方法返回值或方法本身不应该为null。
+    /**
+     * 当用户的应用请求运行时权限，并且用户通过系统对话框响应这些请求后，onRequestPermissionsResult方法会被调用
+     * @NonNull 是一个注解（annotation），它用于指示一个字段、方法参数、方法返回值或方法本身不应该为null。
     如果检测到这样的值可能为null（例如，如果你在一个应该返回非空值的方法中返回了null），它会发出警告或错误*/
         @Override
         public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            // 检查请求码是否是我们发出的权限请求的请求码
             if (requestCode == PERMISSIONS_REQUEST_CODE) {
                 // 检查每一项权限是否都已授权
                 boolean allPermissionsGranted = true;
